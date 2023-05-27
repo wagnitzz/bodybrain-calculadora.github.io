@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://i.imgur.com/jCxafmI.png');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  font-family: Helvetica, sans-serif;
+}
+
+    button {
+      background-color: #FE0043;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(254, 0, 67, 0.3);
+      font-weight: bold;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* Alinhando os botões horizontalmente no centro */
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .button-container button {
+      margin: 0 10px; /* Espaçamento entre os botões */
+    }
+
+</style>
+
+<script>
+
+// Para mostrar a primeira etapa.
+function showFirstStep() {
+  document.getElementById("welcome").style.display = "none";
+  document.getElementById("step1").style.display = "block";
+}
+
+//Função para mostrar a próxima etapa
+function nextStep(currentStep) {
+  var steps = document.getElementsByClassName("step");
+  for (var i = 0; i < steps.length; i++) {
+    steps[i].style.display = "none";
+  }
+  document.getElementById(currentStep).style.display = "block";
+}
+
+//Função para mostrar a etapa anterior.
+function previousStep() {
+  var steps = document.getElementsByClassName("step");
+  for (var i = 0; i < steps.length; i++) {
+    if (steps[i].style.display == "block") {
+      steps[i].style.display = "none";
+      steps[i - 1].style.display = "block";
+      break;
+    }
+  }
+}
+
+//Função para calcular o resultado final
+// Função para calcular o resultado final
+function calculate() {
+  // Recolhendo valores das perguntas anteriores
+  var formula = document.querySelector('input[name="formula"]:checked').value;
+  var sex = document.querySelector('input[name="sex"]:checked').value;
+  var weight = document.getElementById("weight").value;
+  var height = document.getElementById("height").value;
+  var age = document.getElementById("age").value;
+  var activity = document.querySelector('input[name="activity"]:checked').value;
+  var goal = document.querySelector('input[name="goal"]:checked').value;
+
+  // Calculando o resultado final
+  var result;
+  if (formula == "Harris-Benedict") {
+    if (sex == "male") {
+      result = 66 + (13.7 * weight) + (5 * height) - (6.8 * age);
+    } else {
+      result = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
+    }
+  } else if (formula == "Mifflin-St Jeor") {
+    if (sex == "male") {
+      result = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+    } else {
+      result = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+    }
+  } else {
+    if (sex == "male") {
+      result = 370 + (21.6 * weight);
+    } else {
+      result = 320 + (16.3 * weight);
+    }
+  }
+  result *= activity;
+
+  // Calculando o VET
+  var VET;
+  if (goal == "g1") {
+    VET = result - 1000;
+  } else if (goal == "g2") {
+    VET = result - 500;
+  } else if (goal == "g3") {
+    VET = result;
+  } else if (goal == "g4") {
+    VET = result + 500;
+  } else {
+    VET = result + 1000;
+  }
+
+  // Calculando faixas de macronutrientes
+  var choMin = 0.45 * VET / 4;  // Mínimo de 45% das calorias provenientes de carboidratos
+  var choMax = 0.65 * VET / 4;  // Máximo de 65% das calorias provenientes de carboidratos
+  var ptnMin = 0.1 * VET / 4;   // Mínimo de 10% das calorias provenientes de proteínas
+  var ptnMax = 0.35 * VET / 4;  // Máximo de 35% das calorias provenientes de proteínas
+  var fatMin = 0.2 * VET / 9;   // Mínimo de 20% das calorias provenientes de gorduras
+  var fatMax = 0.35 * VET / 9;  // Máximo de 35% das calorias provenientes de gorduras
+
+  // Mostrando os resultados
+  document.getElementById("step4").style.display = "none";
+  document.getElementById("results").style.display = "block";
+  document.getElementById("results").innerHTML = `
+    <h2>Resultados</h2>
+    <p>Seu gasto calórico diário é: ${result.toFixed()} calorias</p>
+    <p>Sua dieta deve conter: ${VET.toFixed()} calorias</p>
+    <p>Você deve consumir entre ${choMin.toFixed(0)} e ${choMax.toFixed(0)} gramas de carboidratos por dia.</p>
+    <p>Você deve consumir entre ${ptnMin.toFixed(0)} e ${ptnMax.toFixed(0)} gramas de proteínas por dia.</p>
+    <p>Você deve consumir entre ${fatMin.toFixed(0)} e ${fatMax.toFixed(0)} gramas de gorduras por dia.</p>
+    <div class="button-container">
+      <button onclick="previousStep()">Voltar</button>
+    </div>
+  `;
+
+}
+
+</script>
+</head>
+<body>
+
+
+<div id="welcome">
+  <h2>Bem-vindo!</h2>
+  <p>Este é um programa de cálculo de gasto calórico diário e recomendação de dieta.</p>
+  <button onclick="showFirstStep()">COMEÇAR</button>
+</div>
+
+<div id="step1" class="step" style="display:none;">
+  <h2>Etapa 1</h2>
+  <p>Selecione qual fórmula matemática deseja usar:</p>
+  <input type="radio" name="formula" value="Harris-Benedict" checked> Estou dentro do meu peso - Harris-Benedict<br>
+  <input type="radio" name="formula" value="Mifflin-St Jeor"> Estou acima do peso - Mifflin-St Jeor<br>
+  <input type="radio" name="formula" value="Tinsley"> Tenho bastante massa muscular - Tinsley<br>
+  <button onclick="nextStep('step2')">Avançar</button>
+</div>
+
+<div id="step2" class="step" style="display:none;">
+	<h2>Etapa 2</h2>
+  <p>Informe seu sexo, peso, altura e idade:</p>
+  <input type="radio" name="sex" value="male" checked> Masculino<br>
+  <input type="radio" name="sex" value="female"> Feminino<br>
+  <br>
+	Peso (kg): <input type="range" id="weight" min="40" max="150" step="1" value="75" oninput="document.getElementById('weight-value').innerHTML = this.value">
+	<span id="weight-value"></span> kg
+	<br>
+	Altura (cm): <input type="range" id="height" min="140" max="220" step="1" value="170" oninput="document.getElementById('height-value').innerHTML = this.value">
+	<span id="height-value"></span> cm
+	<br>
+	Idade: <input type="range" id="age" min="18" max="80" step="1" value="30" oninput="document.getElementById('age-value').innerHTML = this.value">
+	<span id="age-value"></span> anos
+
+  <br><br>
+  <div class="button-container">
+    <button onclick="previousStep()">Voltar</button>
+    <button onclick="nextStep('step3')">Avançar</button>
+  </div>
+</div>
+
+<div id="step3" class="step" style="display:none;">
+  <h2>Etapa 3</h2>
+  <p>Selecione qual categoria você se encaixa:</p>
+  <input type="radio" name="activity" value="1.2" checked> Sedentário<br>
+  <input type="radio" name="activity" value="1.3"> Moderado<br>
+  <input type="radio" name="activity" value="1.5"> Ativo<br>
+  <input type="radio" name="activity" value="1.7"> Muito Ativo<br>
+  <br>
+  <div class="button-container">
+    <button onclick="previousStep()">Voltar</button>
+    <button onclick="nextStep('step4')">Avançar</button>
+  </div>
+</div>
+
+
+<div id="step4" class="step" style="display:none;">
+  <h2>Etapa 4</h2>
+  <p>Qual é seu objetivo?:</p>
+  <input type="radio" name="goal" value="g1" checked> Perder muito peso<br>
+  <input type="radio" name="goal" value="g2"> Perder pouco peso<br>
+  <input type="radio" name="goal" value="g3"> Manter meu peso<br>
+  <input type="radio" name="goal" value="g4"> Hipertrofia leve<br>
+  <input type="radio" name="goal" value="g5"> Hipertrofia agressiva<br>
+  <br>
+
+  <div class="button-container">
+    <button onclick="previousStep()">Voltar</button>
+    <button onclick="calculate()">Calcular</button>
+  </div>
+</div>
+
+<div id="results" class="step" style="display: none;">
+  <h2>Resultados</h2>
+  <div id="result" style="display: none;"></div>
+  <div id="protein" style="display: none;"></div>
+  <div id="VET" style="display: none;"></div>
+  <div id="cho" style="display: none;"></div>
+  <div id="ptn" style="display: none;"></div>
+  <div id="fat" style="display: none;"></div>
+  <button onclick="previousStep()">Voltar</button>
+</div>
+
+
+
+</body>
+</html>
