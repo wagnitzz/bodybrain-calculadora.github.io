@@ -3,6 +3,7 @@
 <head>
 
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
 <style type="text/css">
 
@@ -19,23 +20,28 @@
   }
 
   button {
-    background-color: #FE0043;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
     color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    border: 1px solid #FE0043;
+    padding: 15px 30px;
+    font-size: 17px;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(254, 0, 67, 0.3);
-    font-weight: bold;
-    margin: 0 auto;
+    font-weight: none;
     display: block;
+  }
+
+
+  .b {
+      background-color: #FE0043;
+      box-shadow: 0px 4px 8px rgba(254, 0, 67, 0.3);
   }
 
   /* Alinhando os botões horizontalmente no centro */
   .button-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     }
       
   .button-container button {
@@ -46,17 +52,30 @@
     max-width: 50%;
   }
 
-.texto {
-  font-size: 14px;
-}
+  .steps {
+    width: 50%;
+  }
 
-.logo {
-  position: absolute;
-  top: 10%;
-  transform: translateY(-100%);
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .texto {
+    font-size: 14px;
+  }
+
+  .logo {
+    position: absolute;
+    top: 10%;
+    transform: translateY(-100%);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+input[type="radio"] { appearance: none; -webkit-appearance: none; -moz-appearance: none; width: 15px; height: 15px; border-radius: 50%; border: 1px solid #FE0043; } input[type="radio"]:checked { background-color: #FE0043; }
+
+input[type="range"] { appearance: none; -webkit-appearance: none; width: 50%; height: 7px; background-color: #ddd; border-radius: 5px; }
+
+input[type="range"]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background-color: #FE0043; border-radius: 50%; cursor: pointer; }
+
+input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background-color: #FE0043; border-radius: 50%; cursor: pointer; }
+
 
 </style>
 
@@ -156,9 +175,9 @@ result = 320 + (16.3 * weight);
     <p>Você deve consumir entre ${choMin.toFixed(0)} e ${choMax.toFixed(0)} gramas de carboidratos por dia.</p>
     <p>Você deve consumir entre ${ptnMin.toFixed(0)} e ${ptnMax.toFixed(0)} gramas de proteínas por dia.</p>
     <p>Você deve consumir entre ${fatMin.toFixed(0)} e ${fatMax.toFixed(0)} gramas de gorduras por dia.</p>
-    <br>
+    <br><br>
     <div class="button-container">
-<button onclick="previousStep()">Voltar</button>
+<button onclick="previousStep()">VOLTAR</button>
     </div>
   `;
 
@@ -168,7 +187,7 @@ result = 320 + (16.3 * weight);
 </head>
 <body>
 
-  <center><img class="logo" width="166px" src="https://raw.githubusercontent.com/wagnitzz/bodybrain-calculadora.github.io/main/logo.png"></center>
+  <img class="logo" width="166px" src="https://raw.githubusercontent.com/wagnitzz/bodybrain-calculadora.github.io/main/logo.png">
   <br>
 
 <div id="welcome" class="cont texto">
@@ -180,75 +199,90 @@ result = 320 + (16.3 * weight);
 
   <p>Esta ferramenta gratuita faz parte da BodyBrain, uma plataforma completa voltada para quem quer transformar o próprio corpo em 90 dias ou menos. Nossa plataforma te ajuda a criar a própria dieta. Nela você vai aprender quais os melhores alimentos para incluir, os melhores horários e quais nutrientes priorizar de acordo com o seu objetivo.</p>
   <p><b>Clique no botão abaixo para calcular as calorias e os macros da sua dieta e dar início à sua jornada de transformação.</b></p>
-  <br>
-  <button onclick="showFirstStep()">COMEÇAR</button>
+  <br><br>
+  <button class="b" onclick="showFirstStep()">COMEÇAR</button>
 </div>
 
-<div id="step1" class="step" style="display:none;">
+<div id="step1" class="step steps" style="display:none;">
 
-  <h2>Etapa 1</h2>
-  <p>Selecione qual fórmula matemática deseja usar:</p>
-  <input type="radio" name="formula" value="Harris-Benedict" checked> Estou dentro do meu peso - Harris-Benedict<br>
-  <input type="radio" name="formula" value="Mifflin-St Jeor"> Estou acima do peso - Mifflin-St Jeor<br>
-  <input type="radio" name="formula" value="Tinsley"> Tenho bastante massa muscular - Tinsley<br>
-  <br>
-  <button onclick="nextStep('step2')">Avançar</button>
+  <h3>Como você se encontra hoje?</h3>
+
+  <input type="radio" name="formula" value="Harris-Benedict" checked> Meu peso está normal ou levemente alto<br><br>
+  <input type="radio" name="formula" value="Mifflin-St Jeor"> Meu peso está muito acima do ideal (obesidade)
+  <!--<input type="radio" name="formula" value="Tinsley"> Muito acima do peso, porém de massa muscular<br>-->
+  
+  <br><br><br>
+  
+  <button class="b" onclick="nextStep('step2')">CONTINUAR</button>
+
 </div>
 
-<div id="step2" class="step" style="display:none;">
+<div id="step2" class="step steps" style="display:none;">
 
-  <h2>Etapa 2</h2>
-  <p>Informe seu sexo, peso, altura e idade:</p>
-  <input type="radio" name="sex" value="male" checked> Masculino<br>
+  <h3>Informe seu sexo, peso, altura e idade:</h3>
+  <input type="radio" name="sex" value="male" checked> Masculino<br><br>
   <input type="radio" name="sex" value="female"> Feminino<br>
   <br>
-  Peso (kg): <input type="range" id="weight" min="40" max="150" step="1" value="75" oninput="document.getElementById('weight-value').innerHTML = this.value">
+  <b>Peso (kg):</b> <input type="range" id="weight" min="40" max="150" step="1" value="75" oninput="document.getElementById('weight-value').innerHTML = this.value">
   <span id="weight-value"></span> kg
-  <br>
-  Altura (cm): <input type="range" id="height" min="140" max="220" step="1" value="170" oninput="document.getElementById('height-value').innerHTML = this.value">
+  <br><br>
+  <b>Altura (cm):</b> <input type="range" id="height" min="140" max="220" step="1" value="170" oninput="document.getElementById('height-value').innerHTML = this.value">
   <span id="height-value"></span> cm
-  <br>
-  Idade: <input type="range" id="age" min="18" max="80" step="1" value="30" oninput="document.getElementById('age-value').innerHTML = this.value">
+  <br><br>
+  <b>Idade:</b> <input type="range" id="age" min="18" max="80" step="1" value="30" oninput="document.getElementById('age-value').innerHTML = this.value">
   <span id="age-value"></span> anos
 
-  <br><br>
+  <br><br><br>
+  
   <div class="button-container">
-    <button onclick="previousStep()">Voltar</button>
-    <button onclick="nextStep('step3')">Avançar</button>
+    <button onclick="previousStep()">VOLTAR</button>
+    <button class="b" onclick="nextStep('step3')">CONTINUAR</button>
+  </div>
+
+</div>
+
+<div id="step3" class="step steps" style="display:none;">
+
+  <h3>Selecione qual categoria você se encaixa:</h3>
+  <input type="radio" name="activity" value="1.2" checked> Sedentário<br><span style="color: #666; font-size: 13px;">Pouco ou nenhum exercício.</span><br><br>
+  <input type="radio" name="activity" value="1.3"> Moderadamente ativo<br><span style="color: #666; font-size: 13px;">Exercícios leves ou no máximo 3 vezes na semana.</span><br><br>
+  <input type="radio" name="activity" value="1.5"> Ativo<br><span style="color: #666; font-size: 13px;">Exercícios mais ativos ou durante 4 a 5 vezes na semana.</span><br><br>
+  <input type="radio" name="activity" value="1.7"> Muito ativo<br><span style="color: #666; font-size: 13px;">Exercícios muito intensos e/ou diários (7 vezes na semana ou mais).</span>
+
+  <br><br><br>
+
+  <div class="button-container">
+    <button onclick="previousStep()">VOLTAR</button>
+    <button class="b" onclick="nextStep('step4')">CONTINUAR</button>
   </div>
 </div>
 
-<div id="step3" class="step" style="display:none;">
 
-  <h2>Etapa 3</h2>
-  <p>Selecione qual categoria você se encaixa:</p>
-  <input type="radio" name="activity" value="1.2" checked> Sedentário<br>
-  <input type="radio" name="activity" value="1.3"> Moderado<br>
-  <input type="radio" name="activity" value="1.5"> Ativo<br>
-  <input type="radio" name="activity" value="1.7"> Muito Ativo<br>
-  <br>
-  <div class="button-container">
-    <button onclick="previousStep()">Voltar</button>
-    <button onclick="nextStep('step4')">Avançar</button>
-  </div>
-</div>
+<div id="step4" class="step steps" style="display:none;">
 
+  <h3>Qual é seu objetivo?</h3>
+  <!--<input type="radio" name="goal" value="g1" checked> Perder muito peso rápido<br>
+  <span style="color: #666; font-size: 13px;">Quero perder o máximo de peso possível, mesmo que a perda não seja necessariamente sustentável.</span><br><br>-->
+  
+  <input type="radio" name="goal" value="g2" checked> Emagrecer<br>
+  <span style="color: #666; font-size: 13px;">Quero perder peso de um jeito saudável e sem muita restrição.</span><br><br>
 
-<div id="step4" class="step" style="display:none;">
-
-  <h2>Etapa 4</h2>
-  <p>Qual é seu objetivo?:</p>
-  <input type="radio" name="goal" value="g1" checked> Perder muito peso rápido<br>
-  <input type="radio" name="goal" value="g2"> Perder peso normal<br>
   <input type="radio" name="goal" value="g3"> Manter meu peso<br>
-  <input type="radio" name="goal" value="g4"> Hipertrofia leve<br>
-  <input type="radio" name="goal" value="g5"> Hipertrofia agressiva<br>
-  <br>
+  <span style="color: #666; font-size: 13px;">Estou bem com meu peso atual, quero só melhorar a composição.</span><br><br>
+
+  <input type="radio" name="goal" value="g4"> Hipertrofia<br>
+  <span style="color: #666; font-size: 13px;">Quero ganhar massa magra sem ganhar gordura.</span>
+
+  <!--<input type="radio" name="goal" value="g5"> Hipertrofia agressiva<br>
+  <span style="color: #666; font-size: 13px;">Quero ter o maior ganho de volume possível, mesmo que venha gordura ou retenção de líquidos junto.</span><br><br>-->
+
+  <br><br><br>
 
   <div class="button-container">
-    <button onclick="previousStep()">Voltar</button>
-    <button onclick="calculate()">Calcular</button>
+    <button onclick="previousStep()">VOLTAR</button>
+    <button class="b" onclick="calculate()">Calcular</button>
   </div>
+
 </div>
 
 <div id="results" class="step" style="display: none;">
@@ -260,9 +294,8 @@ result = 320 + (16.3 * weight);
   <div id="cho" style="display: none;"></div>
   <div id="ptn" style="display: none;"></div>
   <div id="fat" style="display: none;"></div>
+
 </div>
-
-
 
 </body>
 </html>
