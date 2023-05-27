@@ -2,43 +2,61 @@
 <html>
 <head>
 
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
 <style type="text/css">
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url('https://i.imgur.com/jCxafmI.png');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  font-family: Helvetica, sans-serif;
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://i.imgur.com/jCxafmI.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    font-family: 'Open Sans';
+  }
+
+  button {
+    background-color: #FE0043;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(254, 0, 67, 0.3);
+    font-weight: bold;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Alinhando os botões horizontalmente no centro */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    }
+      
+  .button-container button {
+    margin: 0 10px; /* Espaçamento entre os botões */
+  }
+
+  .cont {
+    max-width: 50%;
+  }
+
+.texto {
+  font-size: 14px;
 }
 
-    button {
-      background-color: #FE0043;
-      color: #ffffff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0px 4px 8px rgba(254, 0, 67, 0.3);
-      font-weight: bold;
-      margin: 0 auto;
-      display: block;
-    }
-
-    /* Alinhando os botões horizontalmente no centro */
-    .button-container {
-      display: flex;
-      justify-content: center;
-    }
-    
-    .button-container button {
-      margin: 0 10px; /* Espaçamento entre os botões */
-    }
+.logo {
+  position: absolute;
+  top: 10%;
+  transform: translateY(-100%);
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 </style>
 
@@ -64,9 +82,9 @@ function previousStep() {
   var steps = document.getElementsByClassName("step");
   for (var i = 0; i < steps.length; i++) {
     if (steps[i].style.display == "block") {
-      steps[i].style.display = "none";
-      steps[i - 1].style.display = "block";
-      break;
+steps[i].style.display = "none";
+steps[i - 1].style.display = "block";
+break;
     }
   }
 }
@@ -87,21 +105,21 @@ function calculate() {
   var result;
   if (formula == "Harris-Benedict") {
     if (sex == "male") {
-      result = 66 + (13.7 * weight) + (5 * height) - (6.8 * age);
+result = 66 + (13.7 * weight) + (5 * height) - (6.8 * age);
     } else {
-      result = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
+result = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
     }
   } else if (formula == "Mifflin-St Jeor") {
     if (sex == "male") {
-      result = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+result = (10 * weight) + (6.25 * height) - (5 * age) + 5;
     } else {
-      result = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+result = (10 * weight) + (6.25 * height) - (5 * age) - 161;
     }
   } else {
     if (sex == "male") {
-      result = 370 + (21.6 * weight);
+result = 370 + (21.6 * weight);
     } else {
-      result = 320 + (16.3 * weight);
+result = 320 + (16.3 * weight);
     }
   }
   result *= activity;
@@ -138,8 +156,9 @@ function calculate() {
     <p>Você deve consumir entre ${choMin.toFixed(0)} e ${choMax.toFixed(0)} gramas de carboidratos por dia.</p>
     <p>Você deve consumir entre ${ptnMin.toFixed(0)} e ${ptnMax.toFixed(0)} gramas de proteínas por dia.</p>
     <p>Você deve consumir entre ${fatMin.toFixed(0)} e ${fatMax.toFixed(0)} gramas de gorduras por dia.</p>
+    <br>
     <div class="button-container">
-      <button onclick="previousStep()">Voltar</button>
+<button onclick="previousStep()">Voltar</button>
     </div>
   `;
 
@@ -149,35 +168,48 @@ function calculate() {
 </head>
 <body>
 
-<div id="welcome">
-  <h2>Bem-vindo!</h2>
-  <p>Este é um programa de cálculo de gasto calórico diário e recomendação de dieta.</p>
+  <center><img class="logo" width="166px" src="https://raw.githubusercontent.com/wagnitzz/bodybrain-calculadora.github.io/main/logo.png"></center>
+  <br>
+
+<div id="welcome" class="cont texto">
+
+  <h2>Olá, seja muito bem-vindo!</h2>
+  <p>Esta é a nossa calculadora de calorias e de macronutrientes.</p>
+
+  <p>Com ela você vai descobrir quantas calorias o seu corpo gasta por dia, quantas calorias você precisa consumir para emagrecer ou ganhar massa muscular e qual é a faixa ideal de macros para o seu biotipo.</p>
+
+  <p>Esta ferramenta gratuita faz parte da BodyBrain, uma plataforma completa voltada para quem quer transformar o próprio corpo em 90 dias ou menos. Nossa plataforma te ajuda a criar a própria dieta. Nela você vai aprender quais os melhores alimentos para incluir, os melhores horários e quais nutrientes priorizar de acordo com o seu objetivo.</p>
+  <p><b>Clique no botão abaixo para calcular as calorias e os macros da sua dieta e dar início à sua jornada de transformação.</b></p>
+  <br>
   <button onclick="showFirstStep()">COMEÇAR</button>
 </div>
 
 <div id="step1" class="step" style="display:none;">
+
   <h2>Etapa 1</h2>
   <p>Selecione qual fórmula matemática deseja usar:</p>
   <input type="radio" name="formula" value="Harris-Benedict" checked> Estou dentro do meu peso - Harris-Benedict<br>
   <input type="radio" name="formula" value="Mifflin-St Jeor"> Estou acima do peso - Mifflin-St Jeor<br>
   <input type="radio" name="formula" value="Tinsley"> Tenho bastante massa muscular - Tinsley<br>
+  <br>
   <button onclick="nextStep('step2')">Avançar</button>
 </div>
 
 <div id="step2" class="step" style="display:none;">
-	<h2>Etapa 2</h2>
+
+  <h2>Etapa 2</h2>
   <p>Informe seu sexo, peso, altura e idade:</p>
   <input type="radio" name="sex" value="male" checked> Masculino<br>
   <input type="radio" name="sex" value="female"> Feminino<br>
   <br>
-	Peso (kg): <input type="range" id="weight" min="40" max="150" step="1" value="75" oninput="document.getElementById('weight-value').innerHTML = this.value">
-	<span id="weight-value"></span> kg
-	<br>
-	Altura (cm): <input type="range" id="height" min="140" max="220" step="1" value="170" oninput="document.getElementById('height-value').innerHTML = this.value">
-	<span id="height-value"></span> cm
-	<br>
-	Idade: <input type="range" id="age" min="18" max="80" step="1" value="30" oninput="document.getElementById('age-value').innerHTML = this.value">
-	<span id="age-value"></span> anos
+  Peso (kg): <input type="range" id="weight" min="40" max="150" step="1" value="75" oninput="document.getElementById('weight-value').innerHTML = this.value">
+  <span id="weight-value"></span> kg
+  <br>
+  Altura (cm): <input type="range" id="height" min="140" max="220" step="1" value="170" oninput="document.getElementById('height-value').innerHTML = this.value">
+  <span id="height-value"></span> cm
+  <br>
+  Idade: <input type="range" id="age" min="18" max="80" step="1" value="30" oninput="document.getElementById('age-value').innerHTML = this.value">
+  <span id="age-value"></span> anos
 
   <br><br>
   <div class="button-container">
@@ -187,6 +219,7 @@ function calculate() {
 </div>
 
 <div id="step3" class="step" style="display:none;">
+
   <h2>Etapa 3</h2>
   <p>Selecione qual categoria você se encaixa:</p>
   <input type="radio" name="activity" value="1.2" checked> Sedentário<br>
@@ -202,10 +235,11 @@ function calculate() {
 
 
 <div id="step4" class="step" style="display:none;">
+
   <h2>Etapa 4</h2>
   <p>Qual é seu objetivo?:</p>
-  <input type="radio" name="goal" value="g1" checked> Perder muito peso<br>
-  <input type="radio" name="goal" value="g2"> Perder pouco peso<br>
+  <input type="radio" name="goal" value="g1" checked> Perder muito peso rápido<br>
+  <input type="radio" name="goal" value="g2"> Perder peso normal<br>
   <input type="radio" name="goal" value="g3"> Manter meu peso<br>
   <input type="radio" name="goal" value="g4"> Hipertrofia leve<br>
   <input type="radio" name="goal" value="g5"> Hipertrofia agressiva<br>
@@ -218,6 +252,7 @@ function calculate() {
 </div>
 
 <div id="results" class="step" style="display: none;">
+
   <h2>Resultados</h2>
   <div id="result" style="display: none;"></div>
   <div id="protein" style="display: none;"></div>
@@ -225,7 +260,6 @@ function calculate() {
   <div id="cho" style="display: none;"></div>
   <div id="ptn" style="display: none;"></div>
   <div id="fat" style="display: none;"></div>
-  <button onclick="previousStep()">Voltar</button>
 </div>
 
 
