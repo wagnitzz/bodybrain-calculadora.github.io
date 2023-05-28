@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
 
 <style type="text/css">
 
@@ -66,7 +66,7 @@
     font-size: 17px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: none;
+    font-weight: 500;
     display: block;
   }
 
@@ -187,21 +187,17 @@ result = 320 + (16.3 * weight);
   var fatMin = 0.2 * VET / 9;   // Mínimo de 20% das calorias provenientes de gorduras
   var fatMax = 0.35 * VET / 9;  // Máximo de 35% das calorias provenientes de gorduras
 
-  // Mostrando os resultados
+
   document.getElementById("step4").style.display = "none";
   document.getElementById("results").style.display = "block";
-  document.getElementById("results").innerHTML = `
-    <h2>Resultados</h2>
-    <p>Seu gasto calórico diário é: ${result.toFixed()} calorias</p>
-    <p>Sua dieta deve conter: ${VET.toFixed()} calorias</p>
-    <p>Você deve consumir entre ${choMin.toFixed(0)} e ${choMax.toFixed(0)} gramas de carboidratos por dia.</p>
-    <p>Você deve consumir entre ${ptnMin.toFixed(0)} e ${ptnMax.toFixed(0)} gramas de proteínas por dia.</p>
-    <p>Você deve consumir entre ${fatMin.toFixed(0)} e ${fatMax.toFixed(0)} gramas de gorduras por dia.</p>
-    <br><br>
-    <div class="button-container">
-<button onclick="previousStep()">VOLTAR</button>
-    </div>
-  `;
+  document.getElementById("fatMin").innerHTML = fatMin.toFixed(0);
+  document.getElementById("fatMax").innerHTML = fatMax.toFixed(0);
+  document.getElementById("choMin").innerHTML = choMin.toFixed(0);
+  document.getElementById("choMax").innerHTML = choMax.toFixed(0);
+  document.getElementById("ptnMin").innerHTML = ptnMin.toFixed(0);
+  document.getElementById("ptnMax").innerHTML = ptnMax.toFixed(0);
+  document.getElementById("result").innerHTML = result.toFixed();
+  document.getElementById("VET").innerHTML = VET.toFixed();
 
 }
 
@@ -307,16 +303,20 @@ result = 320 + (16.3 * weight);
 
 </div>
 
-<div id="results" class="step" style="display: none;">
+<div id="results" class="step steps" style="display: none; font-family: 'Poppins'; font-weight: 400;">
+    <h2>Resultados</h2>
+    <p>Gasto calórico diário: <span style="color: #FE0043;"><span id="result"></span> kcal.</span><br><span style="color: #666; font-size: 13px; font-weight: 200;">Esse é a quantidade de calorias que seu corpo gasta por dia.</span></p>
 
-  <h2>Resultados</h2>
-  <div id="result" style="display: none;"></div>
-  <div id="protein" style="display: none;"></div>
-  <div id="VET" style="display: none;"></div>
-  <div id="cho" style="display: none;"></div>
-  <div id="ptn" style="display: none;"></div>
-  <div id="fat" style="display: none;"></div>
+    <p>Sua dieta deve conter aproximadamente: <span style="color: #FE0043;"><span id="VET"></span> kcal.</span><br>
+    <span style="color: #666; font-size: 13px; font-weight: 200;">Essa é a quantidade que você precisa consumir, considerando o seu objetivo e o seu gasto calórico diário.</span></p>
 
+    <p style="font-weight: 500;">A sua distribuição de macros deve ser entre <span id="choMin"></span> a <span id="choMax"></span>g de carboidratos, <span id="ptnMin"></span> a <span id="ptnMax"></span>g de proteínas e <span id="fatMin"></span> a <span id="fatMax"></span>g de gorduras.</p>
+    <p style="font-size: 13px; color: #fff; font-family: 'Poppins'; font-weight: 200;">Quer ir além? Conheça o método mais fácil para distribuir seus macros e construir uma dieta fácil e prática, aprenda a controlar seus macros diários e muito mais por apenas R$ 29,70/mês.<br><span style="font-family: 'Poppins'; font-size: 13px; color: #FFBD59; font-weight: 300;">7 DIAS GRÁTIS PARA TESTE</span></p><br>
+
+    <div class="button-container">
+      <button onclick="previousStep()">VOLTAR</button>
+      <button class="b">Comece agora</button>
+    </div>
 </div>
 
 </body>
