@@ -2,7 +2,6 @@
 <html>
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
@@ -16,6 +15,44 @@
     background-position: center;
     color: #fff;
     font-family: 'Open Sans';
+  }
+
+  .cont {
+    max-width: 100%;
+  }
+
+  .steps {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://i.imgur.com/jCxafmI.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    font-family: 'Open Sans';
+  }
+
+  .cont {
+    max-width: 50%;
+  }
+
+  .steps {
+    width: 50%;
+  }
+
+  .logo {
+    position: absolute;
+    top: 10%;
+    transform: translateY(-100%);
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
@@ -46,14 +83,6 @@
       
   .button-container button {
     margin: 0 10px; /* Espaçamento entre os botões */
-  }
-
-  .cont {
-    max-width: 100%;
-  }
-
-  .steps {
-    width: 100%;
   }
 
   .texto {
